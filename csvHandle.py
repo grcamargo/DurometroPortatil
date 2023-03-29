@@ -19,4 +19,4 @@ def writeCSV(data, hora, carga, valor, temperatura, umidade):
         fieldnames = ['data','hora','pre-carga','valor','temperatura','umidade']
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writerow({'data': data, 'hora': hora, 'pre-carga': carga, 'valor': valor, 'temperatura': temperatura, 'umidade': umidade})
-
+        print("vai corinthians")

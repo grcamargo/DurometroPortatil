@@ -52,12 +52,12 @@ lcd_rows    = 2
 
 lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,lcd_columns, lcd_rows, lcd_backlight)
    # Criando e escrevendo em arquivos de texto (modo 'w').
-arquivo = open('durometro.txt','w')
-arquivo.write("data :,")
-arquivo.write("Hora :,")
-arquivo.write("Valor medido :,")
-arquivo.write("Outros: , \n")
-arquivo.close()
+#arquivo = open('durometro.txt','w')
+#arquivo.write("data :,")
+#arquivo.write("Hora :,")
+#arquivo.write("Valor medido :,")
+#arquivo.write("Outros: , \n")
+#arquivo.close()
 
 lcd.clear()
 lcd.set_cursor(1,0)# Print a two line message
@@ -209,6 +209,8 @@ while (1):
                         
                         arquivo = open(('durometro.txt'), 'r')
                         timestr = time.strftime("%d/%m/%Y;%H:%M:%S; ") 
+                        data=time.strftime("%d/%m/%Y")
+                        hora=time.strftime("%H:%M:%S")
                         print (timestr)
                         texto = arquivo.readlines()
                         texto.append(timestr)
@@ -229,7 +231,10 @@ while (1):
                         
                         arquivo = open(('durometro.txt'), 'r')
                         timestr =(';Temp={0:0.1f}*C  Humidity={1:0.1f}% '.format(temperature, humidity))#print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity)) 
+                        temp=('{0:0.1f}'.format(temperature))
+                        umid=('{0:0.1f}'.format(humidity))
                         print (timestr)
+                        precarga=10
                         texto = arquivo.readlines()
                         texto.append(timestr)
                         
@@ -246,6 +251,8 @@ while (1):
                         arquivo = open(('durometro.txt'), 'w')
                         arquivo.writelines(texto)
                         arquivo.close()
+
+                        writeCSV(data,hora,precarga,valor,temp,umid)
                         
                         #Caso contador = 1, acende o led vermelho
                         print(contador)
